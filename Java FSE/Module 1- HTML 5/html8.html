@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Event Preference</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      margin: 0;
+      padding: 40px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    label {
+      font-size: 1.1em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    select, button {
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1em;
+    }
+    button {
+      cursor: pointer;
+      background-color: #007bff;
+      color: white;
+      border: none;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    #status {
+      margin-top: 10px;
+      font-size: 0.95em;
+      color: green;
+      transition: opacity 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>🎯 Select Your Preferred Event Type</h2>
+
+    <label for="eventType" title="Choose your favorite type of event">Event Type</label>
+    <select id="eventType">
+      <option value="">--Select an option--</option>
+      <option value="Concert">🎵 Concert</option>
+      <option value="Sports">🏀 Sports</option>
+      <option value="Theater">🎭 Theater</option>
+      <option value="Tech Meetup">💻 Tech Meetup</option>
+    </select>
+
+    <button onclick="clearPreferences()">🧹 Clear Preferences</button>
+
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const eventType = document.getElementById("eventType");
+    const status = document.getElementById("status");
+
+    // Load saved preference on page load
+    window.onload = function () {
+      const saved = localStorage.getItem("preferredEvent");
+      if (saved) {
+        eventType.value = saved;
+        showStatus(`✅ Welcome back! Your preferred event: <strong>${saved}</strong>`);
+      }
+    };
+
+    // Save preference on selection change
+    eventType.addEventListener("change", () => {
+      const selected = eventType.value;
+      if (selected) {
+        localStorage.setItem("preferredEvent", selected);
+        sessionStorage.setItem("sessionPreference", selected);
+        showStatus(`🔒 Preference saved: <strong>${selected}</strong>`);
+      }
+    });
+
+    // Clear preferences
+    function clearPreferences() {
+      localStorage.removeItem("preferredEvent");
+      sessionStorage.removeItem("sessionPreference");
+      eventType.value = "";
+      showStatus("🗑️ Preferences cleared.");
+    }
+
+    // Display message
+    function showStatus(message) {
+      status.innerHTML = message;
+      status.style.opacity = 1;
+      setTimeout(() => {
+        status.style.opacity = 0.3;
+      }, 4000);
+    }
+  </script>
+</body>
+</html>

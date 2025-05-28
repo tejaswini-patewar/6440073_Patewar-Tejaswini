@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - Objects & Prototypes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #fff;
+      color: #222;
+    }
+    .event {
+      background: #f9f9f9;
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 0.5rem;
+      padding: 0.4rem 0.8rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+    pre {
+      background: #eee;
+      padding: 0.5rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Portal</h1>
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Event constructor class
+    class Event {
+      constructor(name, date, seats, category) {
+        this.name = name;
+        this.date = new Date(date);
+        this.seats = seats;
+        this.category = category;
+      }
+
+      // Prototype method to check availability
+      checkAvailability() {
+        const now = new Date();
+        return this.date >= now && this.seats > 0;
+      }
+    }
+
+    // Create some event objects
+    const events = [
+      new Event("Tech Meetup", "2025-07-18", 5, "Education"),
+      new Event("Art Exhibition", "2025-06-30", 0, "Art"),
+      new Event("Food Festival", "2025-08-10", 12, "Food"),
+      new Event("Old Event", "2023-05-01", 10, "History")
+    ];
+
+    const eventsContainer = document.getElementById("eventsContainer");
+
+    // Render events function
+    function renderEvents(eventsList) {
+      eventsContainer.innerHTML = "";
+
+      if (eventsList.length === 0) {
+        eventsContainer.innerHTML = "<p>No events to display.</p>";
+        return;
+      }
+
+      eventsList.forEach((event, index) => {
+        if (!event.checkAvailability()) return; // Only show available events
+
+        // Create event card div
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "event";
+
+        // Prepare event details with Object.entries
+        let details = "";
+        for (const [key, value] of Object.entries(event)) {
+          // Format date nicely for display
+          if (key === "date") {
+            details += `<strong>${key}:</strong> ${value.toDateString()}<br>`;
+          } else {
+            details += `<strong>${key}:</strong> ${value}<br>`;
+          }
+        }
+
+        eventDiv.innerHTML = `
+          <h2>${event.name}</h2>
+          <p>${details}</p>
+          <button id="registerBtn-${index}">Register</button>
+          <pre id="objectEntries-${index}" style="display:none;"></pre>
+        `;
+
+        eventsContainer.appendChild(eventDiv);
+
+        // Register button logic
+        const registerBtn = document.getElementById(`registerBtn-${index}`);
+        const objectEntriesPre = document.getElementById(`objectEntries-${index}`);
+
+        registerBtn.addEventListener("click", () => {
+          if (event.seats <= 0) {
+            alert("Sorry, no seats left!");
+            registerBtn.disabled = true;
+            return;
+          }
+          event.seats--;
+          alert(`Registered for ${event.name}. Seats left: ${event.seats}`);
+
+          // Update display
+          if (event.seats === 0) {
+            registerBtn.disabled = true;
+          }
+
+          // Show updated object keys and values using Object.entries
+          const entries = Object.entries(event).map(([k,v]) => {
+            if (k === "date") v = v.toDateString();
+            return `${k}: ${v}`;
+          }).join('\n');
+
+          objectEntriesPre.style.display = "block";
+          objectEntriesPre.textContent = entries;
+
+          // Update seats count visually inside the event div
+          eventDiv.querySelector("p").innerHTML = entries.replace(/\n/g, "<br>");
+        });
+      });
+    }
+
+    renderEvents(events);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Community Event Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* === Global Styles === */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f7f7f7;
+      color: #333;
+    }
+
+    /* === Header === */
+    header {
+      background-color: #005f73;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* === Event Cards === */
+    .event-info {
+      display: flex;
+      justify-content: space-around;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin: 10px;
+      width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    /* === Footer === */
+    footer {
+      background-color: #002e2e;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+
+    /* === Responsive Fix === */
+    @media screen and (max-width: 600px) {
+      .card {
+        width: 100%;
+      }
+
+      .event-info {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🌟 Local Community Event</h1>
+  </header>
+
+  <section class="event-info">
+    <div class="card">
+      <h2>Music Night</h2>
+      <p>Live bands, food stalls, and more!</p>
+    </div>
+    <div class="card">
+      <h2>Art Expo</h2>
+      <p>Local artists and exhibits throughout the weekend.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>📅 Join us this weekend! All are welcome.</p>
+  </footer>
+
+</body>
+</html>

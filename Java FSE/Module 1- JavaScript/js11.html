@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Event Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+      padding: 40px;
+    }
+    form {
+      background: white;
+      max-width: 450px;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    label {
+      margin-top: 15px;
+      display: block;
+      font-weight: bold;
+    }
+    .error {
+      color: red;
+      font-size: 0.9rem;
+      margin-top: 5px;
+    }
+    #result {
+      margin-top: 20px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🎉 Event Sign-up Form</h2>
+
+  <form id="eventForm">
+    <label for="name">Name:</label>
+    <input type="text" name="name" />
+
+    <div id="nameError" class="error"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" />
+
+    <div id="emailError" class="error"></div>
+
+    <label for="event">Select Event:</label>
+    <select name="event">
+      <option value="">-- Choose an event --</option>
+      <option value="Workshop">Workshop</option>
+      <option value="Hackathon">Hackathon</option>
+      <option value="Seminar">Seminar</option>
+    </select>
+
+    <div id="eventError" class="error"></div>
+
+    <button type="submit">Register</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    const form = document.getElementById("eventForm");
+    const resultBox = document.getElementById("result");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      // Get all form fields using form.elements
+      const name = form.elements.name.value.trim();
+      const email = form.elements.email.value.trim();
+      const selectedEvent = form.elements.event.value;
+
+      // Clear old errors
+      document.getElementById("nameError").textContent = "";
+      document.getElementById("emailError").textContent = "";
+      document.getElementById("eventError").textContent = "";
+      resultBox.textContent = "";
+
+      let isValid = true;
+
+      // Validate name
+      if (name === "") {
+        document.getElementById("nameError").textContent = "Name is required.";
+        isValid = false;
+      }
+
+      // Validate email
+      if (email === "") {
+        document.getElementById("emailError").textContent = "Email is required.";
+        isValid = false;
+      } else if (!email.includes("@")) {
+        document.getElementById("emailError").textContent = "Invalid email format.";
+        isValid = false;
+      }
+
+      // Validate event selection
+      if (selectedEvent === "") {
+        document.getElementById("eventError").textContent = "Please select an event.";
+        isValid = false;
+      }
+
+      if (isValid) {
+        resultBox.textContent = `✅ Registered successfully for ${selectedEvent}, ${name}!`;
+        form.reset();
+      }
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - Functions & Closures</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #fefefe;
+      color: #222;
+    }
+    .event {
+      background: #fafafa;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
+    input, select {
+      padding: 0.4rem;
+      margin-right: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Portal</h1>
+
+  <div style="margin-bottom: 1rem;">
+    <input type="text" id="categoryFilter" placeholder="Filter category (e.g., Music)" />
+    <button id="filterBtn">Filter Events</button>
+    <button id="showAllBtn">Show All Events</button>
+  </div>
+
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Event storage
+    let events = [];
+
+    // Closure to track registrations by category
+    function registrationTracker() {
+      const registrations = {};
+      return {
+        increment: (category) => {
+          registrations[category] = (registrations[category] || 0) + 1;
+        },
+        getCount: (category) => registrations[category] || 0,
+        getAll: () => ({ ...registrations })
+      };
+    }
+
+    const tracker = registrationTracker();
+
+    // Add event function
+    function addEvent({ name, date, seats, category }) {
+      if (!name || !date || seats == null || !category) {
+        throw new Error("All event fields are required");
+      }
+      // Add event with a unique id
+      const id = events.length ? events[events.length - 1].id + 1 : 1;
+      events.push({ id, name, date, seats, category });
+    }
+
+    // Register user for an event by id
+    function registerUser(eventId) {
+      const event = events.find(e => e.id === eventId);
+      if (!event) throw new Error("Event not found");
+      if (event.seats <= 0) throw new Error("No seats available");
+      event.seats--;
+      tracker.increment(event.category);
+      return event.seats;
+    }
+
+    // Higher-order function to filter events with a callback
+    function filterEventsByCategory(callback) {
+      return events.filter(callback);
+    }
+
+    // DOM Elements
+    const eventsContainer = document.getElementById("eventsContainer");
+    const filterBtn = document.getElementById("filterBtn");
+    const categoryFilterInput = document.getElementById("categoryFilter");
+    const showAllBtn = document.getElementById("showAllBtn");
+
+    // Display events helper
+    function renderEvents(eventList) {
+      eventsContainer.innerHTML = "";
+      if (eventList.length === 0) {
+        eventsContainer.innerHTML = "<p>No events found.</p>";
+        return;
+      }
+      eventList.forEach(event => {
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "event";
+
+        eventDiv.innerHTML = `
+          <h2>${event.name}</h2>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Category:</strong> ${event.category}</p>
+          <p><strong>Seats Available:</strong> <span id="seats-${event.id}">${event.seats}</span></p>
+          <button id="registerBtn-${event.id}" ${event.seats === 0 ? "disabled" : ""}>Register</button>
+        `;
+
+        eventsContainer.appendChild(eventDiv);
+
+        // Add register click handler with try-catch
+        const registerBtn = document.getElementById(`registerBtn-${event.id}`);
+        const seatsSpan = document.getElementById(`seats-${event.id}`);
+
+        registerBtn.addEventListener("click", () => {
+          try {
+            const seatsLeft = registerUser(event.id);
+            seatsSpan.textContent = seatsLeft;
+            console.log(`Registered for ${event.name}, seats left: ${seatsLeft}`);
+
+            if (seatsLeft === 0) {
+              registerBtn.disabled = true;
+              alert(`Registration full for ${event.name}`);
+            }
+          } catch (err) {
+            alert(`Error: ${err.message}`);
+            console.error(err);
+          }
+        });
+      });
+    }
+
+    // Initial events add (you can add more)
+    addEvent({ name: "Jazz Night", date: "2025-07-15", seats: 5, category: "Music" });
+    addEvent({ name: "Tech Talk", date: "2025-07-20", seats: 3, category: "Education" });
+    addEvent({ name: "Food Carnival", date: "2025-07-22", seats: 10, category: "Food" });
+    addEvent({ name: "Rock Concert", date: "2025-08-01", seats: 0, category: "Music" });
+
+    // Show all events initially
+    renderEvents(events);
+
+    // Filter button click
+    filterBtn.addEventListener("click", () => {
+      const filterText = categoryFilterInput.value.trim().toLowerCase();
+      if (!filterText) {
+        alert("Please enter a category to filter");
+        return;
+      }
+      // Use filterEventsByCategory with a callback
+      const filtered = filterEventsByCategory(event => event.category.toLowerCase().includes(filterText));
+      renderEvents(filtered);
+    });
+
+    // Show all button resets filter
+    showAllBtn.addEventListener("click", () => {
+      categoryFilterInput.value = "";
+      renderEvents(events);
+    });
+
+    // Bonus: Show total registrations per category every 10 seconds
+    setInterval(() => {
+      console.log("Total Registrations by Category:", tracker.getAll());
+    }, 10000);
+  </script>
+
+</body>
+</html>

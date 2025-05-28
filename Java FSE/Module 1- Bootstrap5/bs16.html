@@ -1,0 +1,78 @@
+<!------bs16.1 exercise------->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap 16.1 Fixed Footer</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      min-height: 150vh; /* Just to make scrolling possible */
+    }
+    footer {
+      background-color: #343a40;
+      color: white;
+      padding: 10px 20px;
+      width: 100%;
+      text-align: center;
+      z-index: 1030; /* Bootstrap modals use 1050+, just to be safe */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container py-5">
+    <h1>Scroll down to see fixed footer</h1>
+    <p>Keep scrolling... footer will stay fixed at bottom.</p>
+  </div>
+
+  <footer class="position-fixed bottom-0">
+    Fixed Footer — Always visible at the bottom!
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<!------bs16.2 exercise------->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap 16.2 Badge Overlay</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .image-container {
+      position: relative;
+      display: inline-block; /* shrink-wrap the image */
+    }
+    .badge-overlay {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 1rem;
+    }
+    .image-container img {
+      display: block;
+      width: 300px;
+      height: auto;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5 text-center">
+    <div class="image-container">
+      <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?auto=format&fit=crop&w=300&q=80" alt="Sample" />
+      <span class="badge bg-danger badge-overlay">New</span>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

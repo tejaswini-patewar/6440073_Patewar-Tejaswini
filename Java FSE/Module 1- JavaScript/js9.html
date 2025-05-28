@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - Async JS</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #fff;
+      color: #222;
+    }
+    .event-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #fafafa;
+    }
+    #loading {
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: #007bff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Portal (Async Fetch)</h1>
+
+  <div id="loading">Loading events...</div>
+  <div id="eventsContainer"></div>
+
+  <script>
+    const eventsContainer = document.querySelector("#eventsContainer");
+    const loadingEl = document.querySelector("#loading");
+
+    // Mock API URL - we'll simulate this with a local Promise since no real API access
+    const mockApiUrl = "https://mock-api.com/events"; // (not real, just example)
+
+    // Mock fetch function to simulate API response (replace with fetch() in real)
+    function fetchEventsMock() {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([
+            { id: 1, name: "Dance Festival", date: "2025-06-30", seats: 8 },
+            { id: 2, name: "Coding Bootcamp", date: "2025-07-10", seats: 5 },
+            { id: 3, name: "Art Workshop", date: "2025-07-20", seats: 0 },
+          ]);
+        }, 1500); // simulate 1.5 sec network delay
+      });
+    }
+
+    // Render events
+    function renderEvents(events) {
+      eventsContainer.innerHTML = "";
+      if (events.length === 0) {
+        eventsContainer.textContent = "No upcoming events found.";
+        return;
+      }
+
+      events.forEach(event => {
+        const card = document.createElement("div");
+        card.className = "event-card";
+        card.innerHTML = `
+          <h3>${event.name}</h3>
+          <p>Date: ${new Date(event.date).toDateString()}</p>
+          <p>Available Seats: ${event.seats}</p>
+        `;
+        eventsContainer.appendChild(card);
+      });
+    }
+
+    // Using .then() and .catch()
+    function loadEventsThenCatch() {
+      loadingEl.style.display = "block";
+      fetchEventsMock()
+        .then(events => {
+          loadingEl.style.display = "none";
+          // filter future events only
+          const upcomingEvents = events.filter(e => new Date(e.date) >= new Date());
+          renderEvents(upcomingEvents);
+        })
+        .catch(err => {
+          loadingEl.style.display = "none";
+          eventsContainer.textContent = "Failed to load events. Try again later.";
+          console.error("Fetch error:", err);
+        });
+    }
+
+    // Using async/await
+    async function loadEventsAsyncAwait() {
+      try {
+        loadingEl.style.display = "block";
+        const events = await fetchEventsMock();
+        loadingEl.style.display = "none";
+        const upcomingEvents = events.filter(e => new Date(e.date) >= new Date());
+        renderEvents(upcomingEvents);
+      } catch (err) {
+        loadingEl.style.display = "none";
+        eventsContainer.textContent = "Failed to load events. Try again later.";
+        console.error("Fetch error:", err);
+      }
+    }
+
+    // Run one of the loaders here:
+
+    // Uncomment one at a time to test
+
+    // loadEventsThenCatch();
+    loadEventsAsyncAwait();
+
+  </script>
+
+</body>
+</html>

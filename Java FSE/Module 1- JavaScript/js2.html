@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - Seat Management</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #eee;
+      color: #222;
+    }
+    button {
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>Local Community Event Portal</h1>
+  <p id="eventInfo"></p>
+  <p><strong>Seats available:</strong> <span id="seatCount"></span></p>
+  
+  <button id="registerBtn">Register</button>
+  <button id="cancelBtn">Cancel Registration</button>
+
+  <script>
+    // 1. Use const for event name and date
+    const eventName = "Spring Festival";
+    const eventDate = "2025-07-20";
+
+    // 2. Use let for seats, because seats change
+    let availableSeats = 10;
+
+    // DOM references
+    const eventInfoEl = document.getElementById("eventInfo");
+    const seatCountEl = document.getElementById("seatCount");
+    const registerBtn = document.getElementById("registerBtn");
+    const cancelBtn = document.getElementById("cancelBtn");
+
+    // Function to update the event info using template literals
+    function updateEventInfo() {
+      eventInfoEl.textContent = `Event: ${eventName} | Date: ${eventDate}`;
+      seatCountEl.textContent = availableSeats;
+    }
+
+    // Call once to initialize
+    updateEventInfo();
+
+    // Register: decrement seats using --
+    registerBtn.onclick = () => {
+      if (availableSeats > 0) {
+        availableSeats--; // decrement seat count
+        updateEventInfo();
+        console.log(`Registered! Seats left: ${availableSeats}`);
+        if (availableSeats === 0) {
+          alert("All seats filled! Registration closed.");
+          registerBtn.disabled = true;
+        }
+      }
+    };
+
+    // Cancel: increment seats using ++
+    cancelBtn.onclick = () => {
+      // Allow cancel only if seats are less than max (10 here)
+      if (availableSeats < 10) {
+        availableSeats++; // increment seat count
+        updateEventInfo();
+        console.log(`Registration cancelled! Seats available: ${availableSeats}`);
+        if (availableSeats > 0) {
+          registerBtn.disabled = false;
+        }
+      }
+    };
+  </script>
+</body>
+</html>

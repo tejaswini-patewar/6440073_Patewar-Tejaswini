@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bootstrap with JS Bundle</title>
+  <!-- Link Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="text-primary">Welcome to Bootstrap 5!</h1>
+
+    <!-- Button that triggers collapse -->
+    <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#myCollapse">
+      Toggle Message
+    </button>
+
+    <div class="collapse mt-3" id="myCollapse">
+      <div class="card card-body">
+        Hey! This content shows/hides when you click the button. Thanks, Bootstrap JS!
+      </div>
+    </div>
+  </div>
+
+  <!-- Link Bootstrap JS Bundle -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

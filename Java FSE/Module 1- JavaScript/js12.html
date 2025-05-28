@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AJAX & Fetch API - User Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background-color: #f0f8ff;
+    }
+    form {
+      max-width: 400px;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #aaa;
+      margin-bottom: 20px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007acc;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    #message {
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+      max-width: 400px;
+    }
+    #message.success {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    #message.error {
+      background-color: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>User Registration</h2>
+  <form id="regForm">
+    <input type="text" id="name" placeholder="Your Name" required />
+    <input type="email" id="email" placeholder="Your Email" required />
+    <button type="submit">Register</button>
+  </form>
+
+  <div id="message"></div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const messageBox = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+
+      // Clear previous messages
+      messageBox.style.display = 'none';
+      messageBox.textContent = '';
+      messageBox.className = '';
+
+      if (!name || !email) {
+        showMessage('Please fill out all fields.', 'error');
+        return;
+      }
+
+      // Simulate delayed response using setTimeout
+      showMessage('Sending registration...', '');
+
+      setTimeout(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email }),
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          showMessage('🎉 Registration successful! Your ID: ' + data.id, 'success');
+          form.reset();
+        })
+        .catch(error => {
+          showMessage('❌ Registration failed. Please try again.', 'error');
+          console.error('Fetch error:', error);
+        });
+      }, 2000); // 2 seconds delay to simulate server processing
+    });
+
+    function showMessage(msg, type) {
+      messageBox.textContent = msg;
+      messageBox.className = type;
+      messageBox.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>

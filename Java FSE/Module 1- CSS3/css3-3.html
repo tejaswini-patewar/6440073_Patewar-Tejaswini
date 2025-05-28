@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selectors Playground</title>
+  <style>
+    /* 🧹 Universal selector - Reset default spacing */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* 🏷️ Element selector - Style all <h2> */
+    h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    /* 🆔 ID selector - Style the banner */
+    #mainHeader {
+      background-color: #f39c12;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* 🧩 Class selector - Style event containers */
+    .eventCard {
+      background-color: #ecf0f1;
+      border-left: 6px solid #3498db;
+      padding: 15px;
+      margin: 15px auto;
+      width: 80%;
+      border-radius: 8px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 🧑‍🤝‍🧑 Grouping selector - Style h3 and p together */
+    h3, p {
+      font-family: Arial, sans-serif;
+      color: #34495e;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header id="mainHeader">
+    <h1>Welcome to the Event Zone</h1>
+  </header>
+
+  <section>
+    <h2>Upcoming Events</h2>
+
+    <div class="eventCard">
+      <h3>Music Fest 2025</h3>
+      <p>Join us for an unforgettable night filled with music and magic.</p>
+    </div>
+
+    <div class="eventCard">
+      <h3>Art Expo</h3>
+      <p>Explore creativity from local and global artists.</p>
+    </div>
+
+  </section>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Event Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* === Global Styles === */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+
+    header {
+      background-color: #1e3a8a;
+      color: white;
+      padding: 2vh 2vw;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 2vw;
+      background-color: #3b82f6;
+      padding: 1vh 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2vw;
+      padding: 10px 15px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #2563eb;
+    }
+
+    main {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 5vh 5vw;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 40%;
+      padding: 2vw;
+      margin: 2vh;
+      text-align: center;
+    }
+
+    .card img {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .card h3 {
+      font-size: 2vw;
+    }
+
+    .card p {
+      font-size: 1.2vw;
+    }
+
+    footer {
+      background: #1e3a8a;
+      color: white;
+      text-align: center;
+      padding: 2vh;
+    }
+
+    /* === Media Query for screens < 768px === */
+    @media screen and (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav a {
+        font-size: 4vw;
+        margin: 1vh 0;
+      }
+
+      .card {
+        width: 90%;
+      }
+
+      .card h3 {
+        font-size: 5vw;
+      }
+
+      .card p {
+        font-size: 4vw;
+      }
+
+      header, footer {
+        font-size: 4vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎉 Community Events Portal</h1>
+  </header>
+
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Events</a>
+    <a href="#">Register</a>
+    <a href="#">Contact</a>
+  </nav>
+
+  <main>
+    <div class="card">
+      <img src="https://media.istockphoto.com/id/1806011581/photo/overjoyed-happy-young-people-dancing-jumping-and-singing-during-concert-of-favorite-group.jpg?s=612x612&w=0&k=20&c=cMFdhX403-yKneupEN-VWSfFdy6UWf1H0zqo6QBChP4=" alt="Music Event">
+      <h3>Live Music Night</h3>
+      <p>Enjoy performances by local bands under the stars!</p>
+    </div>
+    <div class="card">
+      <img src="https://www.discoverhongkong.com/content/dam/dhk/intl/explore/arts-entertainment/artsinhk/2025/gallery_art-basel.jpg" alt="Art Gallery">
+      <h3>Art Exhibition</h3>
+      <p>Explore the creative world of local artists this weekend.</p>
+    </div>
+  </main>
+
+  <footer>
+    📅 Don't miss out — Stay connected with your community!
+  </footer>
+
+</body>
+</html>

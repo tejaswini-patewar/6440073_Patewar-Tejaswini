@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Debugging Demo</title>
+  <style>
+    #colorButton {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: blue; /* Starts blue */
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    #message {
+      margin-top: 15px;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <button id="colorButton">Click Me!</button>
+  <div id="message"></div>
+
+  <script>
+    const button = document.getElementById('colorButton');
+    const message = document.getElementById('message');
+
+    button.addEventListener('click', () => {
+      console.log('Button was clicked!');  // Log for debugging
+
+      // Correct CSS property for background color
+      button.style.backgroundColor = 'red';
+
+      // Correct variable name
+      message.textContent = "Button color changed to red!";
+      
+      // Debugger statement to pause execution for inspection
+      debugger;  
+    });
+  </script>
+</body>
+</html>

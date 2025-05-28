@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - Event Listing & Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f0f0f0;
+      color: #222;
+    }
+    .event {
+      background: white;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .event h2 {
+      margin: 0 0 0.5rem 0;
+    }
+    .event p {
+      margin: 0.2rem 0;
+    }
+    button {
+      padding: 0.4rem 0.8rem;
+      margin-top: 0.5rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Local Community Event Portal</h1>
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Simulate some events, with name, date, and seats
+    const events = [
+      { id: 1, name: "Spring Festival", date: "2025-07-20", seats: 5 },
+      { id: 2, name: "Past Music Concert", date: "2023-12-01", seats: 10 },
+      { id: 3, name: "Community Marathon", date: "2025-08-10", seats: 0 },
+      { id: 4, name: "Food Truck Fiesta", date: "2025-06-25", seats: 3 }
+    ];
+
+    const eventsContainer = document.getElementById("eventsContainer");
+    const today = new Date();
+
+    // Clear the container first (good practice)
+    eventsContainer.innerHTML = "";
+
+    // Filter and display only valid upcoming events with seats > 0
+    events.forEach(event => {
+      const eventDate = new Date(event.date);
+      if (eventDate >= today && event.seats > 0) {
+        // Create event card
+        const eventDiv = document.createElement("div");
+        eventDiv.className = "event";
+
+        eventDiv.innerHTML = `
+          <h2>${event.name}</h2>
+          <p><strong>Date:</strong> ${event.date}</p>
+          <p><strong>Seats Available:</strong> <span id="seats-${event.id}">${event.seats}</span></p>
+          <button id="registerBtn-${event.id}">Register</button>
+        `;
+
+        eventsContainer.appendChild(eventDiv);
+
+        // Registration logic wrapped in try-catch
+        const registerBtn = document.getElementById(`registerBtn-${event.id}`);
+        const seatsSpan = document.getElementById(`seats-${event.id}`);
+
+        registerBtn.addEventListener("click", () => {
+          try {
+            if (event.seats <= 0) {
+              throw new Error("No seats available.");
+            }
+            event.seats--; // Decrement seat count
+            seatsSpan.textContent = event.seats;
+            console.log(`Registered for ${event.name}. Seats left: ${event.seats}`);
+
+            if (event.seats === 0) {
+              registerBtn.disabled = true;
+              alert(`Registration full for ${event.name}`);
+            }
+          } catch (error) {
+            alert(`Error: ${error.message}`);
+            console.error(error);
+          }
+        });
+      }
+    });
+
+    // If no valid events to show
+    if (!events.some(e => new Date(e.date) >= today && e.seats > 0)) {
+      eventsContainer.innerHTML = "<p>No upcoming events with available seats right now. Check back later!</p>";
+    }
+  </script>
+</body>
+</html>

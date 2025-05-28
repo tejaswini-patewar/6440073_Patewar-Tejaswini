@@ -1,0 +1,79 @@
+<!---- bs6.1 exercise ----->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Navbar</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .nav-item {
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: white;
+      margin: 5px;
+      border-radius: 4px;
+      text-align: center;
+      cursor: pointer;
+    }
+    .nav-item:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="container d-flex flex-column flex-md-row justify-content-center">
+    <div class="nav-item">Home</div>
+    <div class="nav-item">About</div>
+    <div class="nav-item">Services</div>
+    <div class="nav-item">Contact</div>
+  </nav>
+
+</body>
+</html>
+
+<!---- bs6.2 exercise ----->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Card Flex Layout</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    .card {
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      max-width: 500px;
+      margin: 20px auto;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    .card-header, .card-footer {
+      background-color: #f8f9fa;
+      padding: 10px 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="d-flex justify-content-between align-items-center card-header">
+      <h5 class="mb-0">Card Title</h5>
+      <button class="btn btn-primary btn-sm">Action</button>
+    </div>
+    <div class="card-body">
+      <p>This is some text inside the card body. Flexible alignment makes the header look neat.</p>
+    </div>
+    <div class="d-flex justify-content-between align-items-center card-footer">
+      <small>Footer Left</small>
+      <small>Footer Right</small>
+    </div>
+  </div>
+
+</body>
+</html>

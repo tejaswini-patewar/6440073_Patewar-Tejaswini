@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Link and List Styling</title>
+<style>
+  /* Link Styles */
+  a:link {
+    color: #1e90ff; /* Dodger Blue */
+    text-decoration: none;
+  }
+  a:visited {
+    color: #551a8b; /* Purple-ish */
+  }
+  a:hover {
+    color: #ff4500; /* OrangeRed for that fiery hover */
+    text-decoration: underline;
+  }
+  a:active {
+    color: #ff0000; /* Bright red when active/clicked */
+  }
+
+  /* List Styling */
+  ul.custom-list {
+    list-style-type: square; /* squares instead of default bullets */
+    list-style-position: inside; /* bullet sits inside the content box */
+    padding-left: 0; /* remove default left padding */
+    margin: 20px 0;
+  }
+
+  ul.custom-list li {
+    padding: 8px 0; /* vertical spacing */
+    margin-left: 10px; /* slight indent for each item */
+  }
+
+  /* Navigation Menu: No bullets, horizontal nav */
+  nav ul {
+    list-style: none; /* no bullets */
+    padding-left: 0;
+    margin: 0;
+    display: flex; /* horizontal layout */
+    gap: 20px; /* spacing between nav items */
+  }
+
+  nav ul li {
+    padding: 10px 15px;
+  }
+
+  nav ul li a {
+    color: #333;
+    font-weight: bold;
+  }
+
+  nav ul li a:hover {
+    color: #ff4500;
+  }
+</style>
+</head>
+<body>
+
+<h2>Custom Styled Links</h2>
+<p>
+  Check out this <a href="#">awesome link</a> and this <a href="#">visited link</a>.
+</p>
+
+<h2>Custom Styled List</h2>
+<ul class="custom-list">
+  <li>First item with square bullets inside</li>
+  <li>Second item with spacing and margin</li>
+  <li>Third item, looking neat</li>
+</ul>
+
+<h2>Navigation Menu (No Bullets)</h2>
+<nav>
+  <ul>
+    <li><a href="#">Home</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+</body>
+</html>

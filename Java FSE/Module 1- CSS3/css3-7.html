@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Styled Events Admin Table</title>
+<style>
+  table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse; /* Goodbye double borders */
+    text-align: center; /* Center all text */
+    font-family: Arial, sans-serif;
+  }
+
+  th, td {
+    border: 1px solid #ccc; /* subtle gray border */
+    padding: 12px 15px;
+  }
+
+  th {
+    background-color: #4CAF50; /* nice green header */
+    color: white;
+    font-weight: bold;
+  }
+
+  /* Zebra striping */
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  tbody tr:hover {
+    background-color: #d1e7dd; /* subtle highlight on hover */
+  }
+</style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Events Admin Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Event ID</th>
+      <th>Event Name</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>101</td>
+      <td>Spring Fest</td>
+      <td>2025-06-15</td>
+      <td>Auditorium</td>
+      <td>Upcoming</td>
+    </tr>
+    <tr>
+      <td>102</td>
+      <td>Tech Talk</td>
+      <td>2025-07-01</td>
+      <td>Conference Hall</td>
+      <td>Scheduled</td>
+    </tr>
+    <tr>
+      <td>103</td>
+      <td>Workshop</td>
+      <td>2025-07-20</td>
+      <td>Lab 3</td>
+      <td>Completed</td>
+    </tr>
+    <tr>
+      <td>104</td>
+      <td>Cultural Night</td>
+      <td>2025-08-05</td>
+      <td>Open Grounds</td>
+      <td>Upcoming</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

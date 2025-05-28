@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Event Portal - DOM Manipulation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #fff;
+      color: #222;
+    }
+    .event-card {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      background: #fafafa;
+      position: relative;
+    }
+    .event-card h3 {
+      margin: 0 0 0.5rem 0;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+    button:hover:not(:disabled) {
+      background-color: #0056b3;
+    }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Community Event Portal</h1>
+  <div id="eventsContainer"></div>
+
+  <script>
+    // Event data array
+    const events = [
+      { id: 1, name: "Yoga Workshop", date: "2025-06-20", seats: 5 },
+      { id: 2, name: "Community Cleanup", date: "2025-06-25", seats: 0 },
+      { id: 3, name: "Local Band Night", date: "2025-07-01", seats: 12 },
+    ];
+
+    // Grab container using querySelector
+    const eventsContainer = document.querySelector("#eventsContainer");
+
+    // Function to create and return a single event card DOM element
+    function createEventCard(event) {
+      const card = document.createElement("div");
+      card.className = "event-card";
+
+      // Title
+      const title = document.createElement("h3");
+      title.textContent = event.name;
+      card.appendChild(title);
+
+      // Date
+      const dateP = document.createElement("p");
+      dateP.textContent = `Date: ${new Date(event.date).toDateString()}`;
+      card.appendChild(dateP);
+
+      // Seats
+      const seatsP = document.createElement("p");
+      seatsP.textContent = `Available Seats: ${event.seats}`;
+      card.appendChild(seatsP);
+
+      // Register button
+      const registerBtn = document.createElement("button");
+      registerBtn.textContent = "Register";
+      registerBtn.disabled = event.seats === 0;
+      card.appendChild(registerBtn);
+
+      // Cancel button (hidden initially)
+      const cancelBtn = document.createElement("button");
+      cancelBtn.textContent = "Cancel Registration";
+      cancelBtn.style.display = "none"; // Hide initially
+      card.appendChild(cancelBtn);
+
+      // Register click event
+      registerBtn.addEventListener("click", () => {
+        if (event.seats > 0) {
+          event.seats--;
+          seatsP.textContent = `Available Seats: ${event.seats}`;
+          registerBtn.disabled = event.seats === 0;
+          registerBtn.style.display = "none";
+          cancelBtn.style.display = "inline-block";
+          alert(`You registered for ${event.name}`);
+        }
+      });
+
+      // Cancel click event
+      cancelBtn.addEventListener("click", () => {
+        event.seats++;
+        seatsP.textContent = `Available Seats: ${event.seats}`;
+        registerBtn.disabled = false;
+        registerBtn.style.display = "inline-block";
+        cancelBtn.style.display = "none";
+        alert(`You cancelled registration for ${event.name}`);
+      });
+
+      return card;
+    }
+
+    // Function to render all events dynamically
+    function renderEvents() {
+      eventsContainer.innerHTML = ""; // Clear existing content
+
+      events.forEach(event => {
+        // Show only upcoming events with seats or full (seat can be 0 but show anyway)
+        const eventDate = new Date(event.date);
+        const now = new Date();
+
+        if (eventDate >= now) {
+          const eventCard = createEventCard(event);
+          eventsContainer.appendChild(eventCard);
+        }
+      });
+    }
+
+    // Initial rendering
+    renderEvents();
+  </script>
+
+</body>
+</html>

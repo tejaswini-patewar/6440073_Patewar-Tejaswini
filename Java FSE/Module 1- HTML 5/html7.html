@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Video Invite with Media Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f4f4f4;
+        }
+        #message {
+            margin-top: 10px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Event Promo Video</h2>
+
+<!-- The video element with source and controls -->
+<video id="promoVideo" width="480" controls oncanplay="videoReady()">
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+</video>
+
+<!-- Message placeholder -->
+<p id="message"></p>
+
+<!-- Sample form to simulate 'unfinished' input -->
+<form id="eventForm">
+    <label for="name">Your Name: </label>
+    <input type="text" id="name" name="name" required />
+    <br /><br />
+    <button type="submit">Submit</button>
+</form>
+
+<script>
+    function videoReady() {
+        // Show message when video can play
+        document.getElementById('message').textContent = "🎬 Video ready to play!";
+    }
+
+    // Warn user if they try to leave page without submitting form
+    window.onbeforeunload = function(event) {
+        // Check if form is dirty (i.e., user typed something but not submitted)
+        const form = document.getElementById('eventForm');
+        const isFormDirty = form.name.value.trim() !== '';
+
+        if (isFormDirty) {
+            const warningMessage = "You have unsaved changes! Are you sure you want to leave?";
+            event.returnValue = warningMessage; // For most browsers
+            return warningMessage; // For some legacy browsers
+        }
+    };
+
+    // Optional: Clear unload warning on form submit (no need to warn if user submits)
+    document.getElementById('eventForm').addEventListener('submit', () => {
+        window.onbeforeunload = null;
+    });
+</script>
+
+</body>
+</html>

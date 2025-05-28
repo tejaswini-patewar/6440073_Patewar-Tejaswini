@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Box Model & Layout Control Demo</title>
+<style>
+  /* Box model for eventCard */
+  .eventCard {
+    border: 2px solid #007BFF; /* solid blue border */
+    padding: 20px;              /* inside space to breathe */
+    margin: 30px auto;          /* outside space, centered horizontally */
+    max-width: 400px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;     /* includes border and padding in width */
+    border-radius: 8px;
+  }
+
+  /* Form field styling */
+  input[type="text"], select {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%;
+    border: 1.5px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: outline 0.3s ease;
+  }
+
+  /* Highlight selected/ focused form fields */
+  input[type="text"]:focus, select:focus {
+    outline: 3px solid #28a745; /* bright green outline */
+    outline-offset: 3px;        /* offset so it’s not squished */
+  }
+
+  /* Hidden vs display none */
+  .hidden-visibility {
+    visibility: hidden; /* element is invisible but takes space */
+    background-color: #ffcccc;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  .hidden-display {
+    display: none; /* element is removed from the flow, takes no space */
+    background-color: #ccccff;
+    padding: 10px;
+    margin: 10px 0;
+  }
+
+  /* Just for clarity */
+  .container {
+    max-width: 450px;
+    margin: 40px auto;
+    font-family: Arial, sans-serif;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <h2>Event Card with Box Model Spacing</h2>
+  <div class="eventCard">
+    <h3>Music Festival 2025</h3>
+    <p>Date: August 10, 2025</p>
+    <p>Location: City Park</p>
+  </div>
+
+  <h2>Form with Highlighted Fields</h2>
+  <form>
+    <label for="eventName">Event Name:</label><br />
+    <input type="text" id="eventName" name="eventName" placeholder="Enter event name" /><br />
+
+    <label for="eventType">Event Type:</label><br />
+    <select id="eventType" name="eventType">
+      <option value="">Select type</option>
+      <option value="music">Music</option>
+      <option value="conference">Conference</option>
+      <option value="workshop">Workshop</option>
+    </select><br />
+  </form>
+
+  <h2>Visibility vs Display</h2>
+  <div class="hidden-visibility">This box is <strong>visibility: hidden;</strong> — invisible but space reserved.</div>
+  <div class="hidden-display">This box is <strong>display: none;</strong> — completely gone, no space.</div>
+
+</div>
+
+</body>
+</html>
